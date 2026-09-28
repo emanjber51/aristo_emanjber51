@@ -34,14 +34,14 @@ class CustomCard extends StatelessWidget {
             height: 110,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: AppColors.chipUnselected, // لون خلفية الصورة البيج
+              color: AppColors.chipUnselected, 
               borderRadius: BorderRadius.circular(15),
             ),
             child: Center(
               child: Icon(
                 coffeeItem.icon,
                 size: 38,
-                color: AppColors.primary, // لون الأيقونة البني
+                color: AppColors.primary, 
               ),
             ),
           ),
