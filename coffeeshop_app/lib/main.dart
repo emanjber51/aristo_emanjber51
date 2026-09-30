@@ -6,6 +6,7 @@ import 'package:coffeeshop_app/OrderCardDesign.dart';
 import 'package:coffeeshop_app/SearchBoxDesign.dart';
 import 'package:coffeeshop_app/ShipDesign.dart';
 import 'package:coffeeshop_app/Titleapp.dart';
+import 'package:coffeeshop_app/show_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,12 +22,14 @@ Map<String, CoffeeItem> coffeeMap = {
     description: "Strong and dark",
     price: "12.00",
     icon: Icons.local_cafe,
+    isSoldOut: true
   ),
   "003": CoffeeItem(
     title: "Green tea",
     description: "Light and clean",
     price: "15.50",
     icon: Icons.coffee_sharp,
+    
   ),
   "004": CoffeeItem(
     title: "Orange Juice",
@@ -39,11 +42,24 @@ Map<String, CoffeeItem> coffeeMap = {
     description: "Foam on top",
     price: "18.00",
     icon: Icons.coffee_sharp,
+    isSoldOut: true
   ),
   "006": CoffeeItem(
     title: "Mint tea",
     description: "Cool finish",
     price: "14.00",
+    icon: Icons.coffee,
+  ),
+  "007": CoffeeItem(
+    title: "Spanish Latte",
+    description: "Espresso with sweetened condensed milk",
+    price: "15.00",
+    icon: Icons.coffee,
+  ),
+  "008": CoffeeItem(
+    title: "Hazelnut Macchiato",
+    description: "Espresso, steamed milk & hazelnut syrup",
+    price: "17.00",
     icon: Icons.coffee,
   ),
 };
@@ -100,55 +116,25 @@ class CoffeeMenu extends StatelessWidget {
               spacing: 24,
               children: [
                 SearchBox(),
-                Row(
-                  spacing: 10,
-                  children: [
-                    choicesship(
-                      text: "All",
-                      isSelected: true,
-                    ),
-                    choicesship(
-                      text: "Coffee",
-                     isSelected: false,
-                    ),
-                    choicesship(
-                      text: "Tea",
-                      isSelected: false,
-                    ),
-                    choicesship(
-                      text: "Juice",
-                     isSelected: false,
-                    ),
-                    choicesship(
-                      text: "water",
-                      isSelected: false,
-                    ),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 10,
+                    children: [
+                      choicesship(text: "All", isSelected: true),
+                      choicesship(text: "Coffee", isSelected: false),
+                      choicesship(text: "Tea", isSelected: false),
+                      choicesship(text: "Juice", isSelected: false),
+                      choicesship(text: "water", isSelected: false),
+                      choicesship(text: 'Pastries', isSelected: false),
+                      choicesship(text: 'Cold Brew', isSelected: false),
+                      choicesship(text: 'Desserts ', isSelected: true),
+                    ],
+                  ),
                 ),
                 OfferCard(Discount: '50%'),
-                Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  runSpacing: 8,
-                  children: [
-                    Text(
-                      "Popular",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textPrimary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      "see all",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.primary,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+                ShowButton(),
                 GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
@@ -158,12 +144,14 @@ class CoffeeMenu extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   children: [
-                    CustomCard( coffeeItem: coffeeMap["001"]!),
-                    CustomCard( coffeeItem: coffeeMap["002"]!),
-                    CustomCard( coffeeItem: coffeeMap["003"]!),
-                    CustomCard( coffeeItem: coffeeMap["004"]!),
-                    CustomCard( coffeeItem: coffeeMap["005"]!),
-                    CustomCard( coffeeItem: coffeeMap["006"]!),
+                    CustomCard(coffeeItem: coffeeMap["001"]!),
+                    CustomCard(coffeeItem: coffeeMap["002"]!),
+                    CustomCard(coffeeItem: coffeeMap["003"]!),
+                    CustomCard(coffeeItem: coffeeMap["004"]!),
+                    CustomCard(coffeeItem: coffeeMap["005"]!),
+                    CustomCard(coffeeItem: coffeeMap["006"]!),
+                    CustomCard(coffeeItem: coffeeMap["007"]!),
+                    CustomCard(coffeeItem: coffeeMap["008"]!),
                   ],
                 ),
               ],
@@ -175,6 +163,3 @@ class CoffeeMenu extends StatelessWidget {
     );
   }
 }
-
-
-
