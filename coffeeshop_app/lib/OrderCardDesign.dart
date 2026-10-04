@@ -3,12 +3,8 @@ import 'package:coffeeshop_app/CoffeeItem.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  
-  final CoffeeItem coffeeItem ;
-  const CustomCard({
-    super.key,
-    required this.coffeeItem
-  });
+  final CoffeeItem coffeeItem;
+  const CustomCard({super.key, required this.coffeeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +30,18 @@ class CustomCard extends StatelessWidget {
             height: 110,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: AppColors.chipUnselected, 
+              color: coffeeItem.isSoldOut
+                  ? Colors.grey[300]
+                  : AppColors.chipUnselected,
               borderRadius: BorderRadius.circular(15),
             ),
             child: Center(
               child: Icon(
                 coffeeItem.icon,
                 size: 38,
-                color: AppColors.primary, 
+                color: coffeeItem.isSoldOut
+                    ?  const Color.fromARGB(174, 111, 78, 55)
+                    : AppColors.primary,
               ),
             ),
           ),
@@ -77,14 +77,25 @@ class CustomCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               Container(
-                width: 32,
+                width: coffeeItem.isSoldOut ? 70 : 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: AppColors.primary,
+                  color: coffeeItem.isSoldOut ? AppColors.surface : AppColors.primary,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.add, color: Colors.white, size: 20),
+                child: coffeeItem.isSoldOut
+                    ? const Text(
+                        "Sold out",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const Icon(Icons.add, color: Colors.white, size: 20),
               ),
             ],
           ),
