@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
@@ -15,6 +14,18 @@ abstract class AppColors {
   static const Color textSecondary = Color(0xFF6F6156);
 
   static const Color chipUnselected = Color(0xFFF1EAE4);
+
+  static const Color disabledText = Color(0xFF8F8176);
+
+  static const Color disabledFill = Color(0xFFE4DAD2);
+
+  static const Color successText = Color(0xFF2F6B4F);
+
+  static const Color successPanel = Color(0xFFEDF4F0);
+
+  static const Color errorText = Color(0xFFA33B2A);
+
+  static const Color errorPanel = Color(0xFFFBEEEB);
 
   static const BoxShadow cardShadow = BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.06),

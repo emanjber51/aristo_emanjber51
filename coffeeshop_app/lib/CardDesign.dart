@@ -1,5 +1,5 @@
-import 'package:coffeeshop_app/DiscountDesign.dart';
 import 'package:coffeeshop_app/InfoTagDesign.dart';
+import 'package:coffeeshop_app/discount_box.dart';
 import 'package:flutter/material.dart';
 
 class OfferCard extends StatelessWidget {
@@ -90,7 +90,7 @@ class OfferCard extends StatelessWidget {
             Positioned(
               right: 40,
               top: 35,
-              child: DiscountBox(Discount: Discount),
+              child: DiscountBox(discount: Discount),
             ),
           ],
         ),
