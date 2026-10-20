@@ -1,5 +1,5 @@
-import 'package:coffeeshop_app/Appcolors.dart';
-import 'package:coffeeshop_app/CoffeeItem.dart';
+import 'package:coffeeshop_app/app_colors.dart';
+import 'package:coffeeshop_app/coffee_item.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
@@ -70,7 +70,7 @@ class CustomCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                coffeeItem.price,
+                "${coffeeItem.price}",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.primary,
                   fontSize: 16,

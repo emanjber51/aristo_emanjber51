@@ -55,3 +55,36 @@ Run `flutter pub get` in the terminal, then run `flutter run` using an emulator 
  
 * One of the most difficult and frustrating tasks is tracking functions across widgets and passing a function through multiple intermediaries until it reaches the intended class.
 * The difficulty of detecting a `setState` error and identifying the cause of the page's unresponsiveness to user interaction.
+
+## week 5 
+
+### What it is
+The coffee application allows users to easily specify their order type, size, and the number of espresso shots. It clearly displays prices, enables users to review order details on a dedicated page, and facilitates the final purchase through a checkout page.
+
+### Architecture
+* `itemsTobuy` resides within `_CoffeeMenuState` and represents the list of drinks I intend to purchase. When the button in the bottom navigation bar is clicked, I pass this list to the checkout screen, along with the `addToCart` function, to display the selected items.
+
+* Initially, if the search box or category chips are not being used, the `filteredProducts` variable—a list of `CoffeeItem` objects—contains all the drinks available on the menu. These drinks are displayed using a grid, where the number of items in the grid matches the number of elements in the `filteredProducts` list. Each item is rendered via a `CustomCard` component. One of the parameters passed to this `CustomCard` is an `onTap` callback, which triggers navigation to a details screen that displays information about the specific drink that was tapped.
+
+* The FakeOrderService lives in lib/services/fake_order_service.dart. It only simulates a server: it waits two seconds, then either returns an order number or throws an exception (when the cart is empty or the total is over 150 EGP). It does not hold any state itself.
+
+* The checkout state lives in _CartScreenState, because the cart screen is the one that changes depending on it. It has three variables: isLoading shows a spinner on the button and blocks a second tap while the request is running, errorMessage stores the failure message (for example when the order is over 150 EGP), and orderNumber stores the number of a successful order.
+
+* When “Place order” is tapped, the screen sets isLoading to true, then calls the service with await inside a try/catch/finally. On success it saves the order number and clears the cart; on failure it saves the error message so the user can fix the cart and try again. The finally block always sets isLoading back to false, so the button never stays disabled. Before every setState after the await, I check mounted, so the app does not crash if the user leaves the screen while it is loading.
+
+###  What I changed from the design
+
+* I did not change anything regarding the design, and I adhered to the rules.
+
+
+### What I’d do next
+
+* If you would like to further enhance the application, I can add more interfaces. This could include a splash screen that appears when the app is opened, as well as separate screens for user login and new customer registration. Additionally, I can incorporate a screen where customers can submit suggestions—whether for new app features, modifications, or improvements to product quality.
+
+### Struggles 
+
+* The thing that confused me most was tracking how the order list moves between screens. At first, I did not know how to connect it to the cart screen, and I did not understand how to send the user’s choices (size and extra shots) back from the details screen to the menu so the customized drink could be added to the order.
+
+* It clicked when I understood that the menu owns the list and passes it to the other screens through the constructor, so the cart edits the same list. The details screen builds an OrderItem and returns it with Navigator.pop, and the menu receives it with await Navigator.push and adds it inside setState.
+
+* Another challenge was showing the extra shots only for coffee. I solved it by adding an isCoffee attribute to the CoffeeItem class, so the details screen can check it and show the shots widget only for coffee drinks.
